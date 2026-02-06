@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperio Japonés (1868-1945)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS VISUALES --- */
+        body {
+            font-family: 'Crimson Text', serif;
+            background-color: #fcfaf2; /* Color crema papel de arroz */
+            color: #222;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* BANNER PRINCIPAL */
+        header {
+            background-color: #ffffff;
+            color: #BC002D; /* Rojo Bandera Japón */
+            padding: 60px 20px;
+            border-bottom: 4px solid #BC002D;
+            background-image: radial-gradient(#BC002D 1px, transparent 1px);
+            background-size: 20px 20px; /* Patrón de puntos sutil */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 4em;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 10px 40px;
+            border: 2px solid #BC002D;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #1a1a1a;
+            font-style: italic;
+            margin-top: 15px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 5px 20px;
+        }
+
+        /* INTRODUCCIÓN */
+        .intro {
+            padding: 50px 20px;
+            font-size: 1.3em;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #333;
+            border-left: 6px solid #BC002D;
+            text-align: justify;
+        }
+
+        /* TARJETAS INTERACTIVAS (GRID) */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            width: 450px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #BC002D;
+            box-shadow: 0 12px 24px rgba(188, 0, 45, 0.2);
+        }
+
+        .card-header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 350px; /* Hice la imagen un poco más alta para que luzca tu dibujo */
+            background-color: #ccc;
+            object-fit: cover; /* Ajusta la imagen para cubrir el espacio */
+            object-position: top; /* Enfoca la parte superior de la imagen */
+            display: block;
+            border-bottom: 4px solid #BC002D;
+        }
+
+        .click-hint {
+            font-size: 0.9em;
+            color: #BC002D;
+            margin: 10px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-text {
+            padding: 25px;
+            display: none;
+            text-align: justify;
+            background-color: #fff;
+            font-size: 1.1em;
+            border-top: 1px solid #eee;
+        }
+
+        .card-text.visible {
+            display: block;
+            animation: fadeIn 0.6s;
+        }
+
+        /* LISTAS DENTRO DE LAS TARJETAS */
+        ul {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        /* SECCIÓN INFERIOR DETALLADA */
+        .details-section {
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            margin: 60px auto;
+            padding: 50px;
+            max-width: 1000px;
+            border-radius: 4px;
+            box-shadow: 10px 10px 0px #BC002D;
+            text-align: left;
+        }
+
+        .details-section h2 {
+            color: #fff;
+            border-bottom: 2px solid #BC002D;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        .details-section h2:first-child {
+            margin-top: 0;
+        }
+
+        .highlight {
+            color: #ff8a80;
+            font-weight: bold;
+        }
+
+        /* SECCIÓN DE VIDEOS */
+        .video-section {
+            background-color: #fff;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-top: 5px solid #BC002D;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 480px;
+            height: 270px;
+            border: none;
+        }
+
+        /* CUESTIONARIO */
+        .quiz-section {
+            background-color: #f4f4f4;
+            padding: 40px;
+            max-width: 800px;
+            margin: 40px auto;
+            border: 2px solid #ccc;
+            text-align: left;
+        }
+
+        .question-box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #1a1a1a;
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .btn-check {
+            background-color: #BC002D;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: background 0.3s;
+        }
+        .btn-check:hover { background-color: #900022; }
+
+        #quiz-result { text-align: center; font-weight: bold; font-size: 1.3em; }
+
+        /* REFERENCIAS (FOOTER) */
+        footer {
+            background-color: #1a1a1a;
+            color: #888;
+            padding: 40px;
+            font-size: 0.9em;
+            text-align: left;
+        }
+        
+        footer h3 { color: #ddd; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        footer ul { list-style: none; padding: 0; margin: 0; }
+        footer li { margin-bottom: 10px; }
+        footer a { color: #BC002D; text-decoration: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Imperio Japonés</h1>
+        <div class="subtitle">1868 - 1945: De Nación Feudal a Potencia Mundial</div>
+    </header>
+
+    <section class="intro">
+        <p>
+            El <strong>Imperio Japonés</strong> fue un periodo histórico (1868-1945) donde Japón pasó de ser un país tradicional aislado a convertirse en una gran potencia industrial y militar. Este cambio radical fue impulsado por la <em>Restauración Meiji</em> y un fuerte nacionalismo, llevando al país a una expansión territorial agresiva que culminó en la Segunda Guerra Mundial.
+        </p>
+    </section>
+
+    <div class="main-content">
+
+        <div class="card" onclick="toggleText('c-contexto')">
+            <div class="card-header">Contexto: Antes del Imperio</div>
+            <img src="f j.jpeg" alt="Dibujo Samurai Shogunato" class="card-image">
+            <p class="click-hint">▼ Haz clic para leer</p>
+            
+            <div id="c-contexto" class="card-text">
+                <p><strong>El Shogunato Tokugawa (1603-1868):</strong> Japón vivía bajo un sistema feudal donde el poder real lo tenían el <em>shogún</em> y los señores feudales (daimyo), mientras el emperador era solo un símbolo.</p>
+                <p><strong>El Aislamiento (Sakoku):</strong> Durante más de dos siglos, Japón estuvo cerrado al mundo. Su economía era agrícola y su sociedad estaba dividida estrictamente en clases (samuráis, campesinos, etc.).</p>
+                <p><strong>La Crisis:</strong> A mediados del siglo XIX, la presión de potencias como EE.UU. para abrir los puertos reveló el atraso tecnológico de Japón, provocando la caída del shogunato.</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="toggleText('c-causas')">
+            <div class="card-header">¿Qué lo ocasionó?</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/The_New_fighting_the_Old_in_early_Meiji_Japan_circa_1870.jpg" alt="Restauración Meiji" class="card-image">
+            <p class="click-hint">▼ Haz clic para leer</p>
+            
+            <div id="c-causas" class="card-text">
+                <p><strong>La Restauración Meiji (1868):</strong> Ante el temor de ser colonizado por Occidente, el poder volvió al Emperador. Japón decidió modernizarse rápidamente bajo el lema "País rico, ejército fuerte".</p>
+                <p><strong>Expansión y Recursos:</strong> Japón necesitaba recursos que no tenía en sus islas (petróleo, hierro, caucho) para su industria. Esto impulsó la invasión de territorios como:</p>
+                <ul>
+                    <li>Corea y Taiwán</li>
+                    <li>Manchuria y regiones de China</li>
+                    <li>Islas del Pacífico</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <h2 style="color:#BC002D; text-align:center;">Documentales Recientes (2025)</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/gxKGTd4GESk" title="Historia de Japón 2025" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/rz8pb67IoLY" title="Bushido Samurai 2025" allowfullscreen></iframe>
+        </div>
+        <p style="text-align:center; margin-top:10px; font-size:0.9em; color:#666;">Videos seleccionados: "Historia Completa de Japón" y "El Código Bushido" (Publicados en 2025).</p>
+    </div>
+
+    <div class="details-section">
+        <h2>Ideología del Imperio</h2>
+        <p>El imperio se sostuvo sobre cuatro pilares fundamentales:</p>
+        <ul>
+            <li><span class="highlight">Nacionalismo extremo:</span> Orgullo desmedido por la nación japonesa.</li>
+            <li><span class="highlight">Militarismo:</span> El ejército tenía gran influencia en las decisiones del gobierno.</li>
+            <li><span class="highlight">Culto al Emperador:</span> Era considerado una figura sagrada y divina.</li>
+            <li><span class="highlight">Panasiatismo:</span> La idea de que Japón debía liderar y "liberar" a Asia del control occidental.</li>
+        </ul>
+
+        <h2>Conflictos Importantes</h2>
+        <p>La expansión japonesa llevó a numerosas guerras clave:</p>
+        <ul>
+            <li>Guerra Sino-Japonesa (1894-1895)</li>
+            <li>Guerra Ruso-Japonesa (1904-1905)</li>
+            <li><strong>Segunda Guerra Mundial (1939-1945):</strong> Japón se unió al Eje (con Alemania e Italia). Tras el ataque a <em>Pearl Harbor</em> (1941), entró en guerra directa con EE.UU.</li>
+        </ul>
+
+        <h2>El Fin del Imperio</h2>
+        <p>En 1945, tras los bombardeos atómicos sobre Hiroshima y Nagasaki, Japón se rindió. Esto marcó el fin de la expansión imperial y el inicio de un Japón pacifista y democrático.</p>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="text-align:center; color:#BC002D;">Prueba de Conocimiento</h2>
+        
+        <div class="question-box">
+            <div class="question-title">1. ¿Qué evento marcó el inicio del Imperio Japonés en 1868?</div>
+            <label><input type="radio" name="p1" value="incorrecto"> La llegada de los barcos negros</label><br>
+            <label><input type="radio" name="p1" value="correcto"> La Restauración Meiji</label><br>
+            <label><input type="radio" name="p1" value="incorrecto"> La Guerra con Rusia</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question-title">2. ¿Cuál era el objetivo económico principal de la expansión territorial?</div>
+            <label><input type="radio" name="p2" value="correcto"> Obtener recursos naturales (petróleo, hierro)</label><br>
+            <label><input type="radio" name="p2" value="incorrecto"> Expandir la religión sintoísta</label><br>
+            <label><input type="radio" name="p2" value="incorrecto"> Conseguir mano de obra barata</label>
+        </div>
+
+        <div class="question-box">
+            <div class="question-title">3. ¿Qué ideología promovía que Japón debía liberar a Asia de Occidente?</div>
+            <label><input type="radio" name="p3" value="incorrecto"> Comunismo</label><br>
+            <label><input type="radio" name="p3" value="incorrecto"> Feudalismo</label><br>
+            <label><input type="radio" name="p3" value="correcto"> Panasiatismo</label>
+        </div>
+
+        <button class="btn-check" onclick="verificarQuiz()">Verificar Respuestas</button>
+        <div id="quiz-result"></div>
+    </div>
+
+    <footer>
+        <h3>Fuentes de Referencia</h3>
+        <ul>
+            <li>• <strong>Historia Universal.org:</strong> "Imperio japonés". Información sobre origen y expansión. <a href="https://historiauniversal.org/imperio-japones/" target="_blank">[Enlace]</a></li>
+            <li>• <strong>Jansen, Marius B.:</strong> <em>The Making of Modern Japan</em>. Harvard University Press.</li>
+            <li>• <strong>Gordon, Andrew:</strong> <em>A Modern History of Japan: From Tokugawa Times to the Present</em>. Oxford University Press.</li>
+            <li>• <strong>Encyclopaedia Britannica:</strong> "Empire of Japan". Historia general y contexto.</li>
+            <li>• <strong>BBC History:</strong> Artículos sobre Japón moderno y la Segunda Guerra Mundial.</li>
+        </ul>
+        <p style="margin-top: 30px; text-align: center;">© 2026 - Proyecto Educativo Escolar</p>
+    </footer>
+
+    <script>
+        function toggleText(id) {
+            var el = document.getElementById(id);
+            if (el.classList.contains('visible')) {
+                el.classList.remove('visible');
+            } else {
+                el.classList.add('visible');
+            }
+        }
+
+        function verificarQuiz() {
+            var p1 = document.querySelector('input[name="p1"]:checked');
+            var p2 = document.querySelector('input[name="p2"]:checked');
+            var p3 = document.querySelector('input[name="p3"]:checked');
+            var res = document.getElementById('quiz-result');
+            var score = 0;
+
+            if(!p1 || !p2 || !p3) {
+                res.innerHTML = "⚠️ Responde todas las preguntas por favor.";
+                res.style.color = "#a00";
+                return;
+            }
+
+            if(p1.value === "correcto") score++;
+            if(p2.value === "correcto") score++;
+            if(p3.value === "correcto") score++;
+
+            if(score === 3) {
+                res.innerHTML = "🎌 ¡Excelente! 3/3 Aciertos.";
+                res.style.color = "green";
+            } else {
+                res.innerHTML = "Puntaje: " + score + "/3. ¡Inténtalo de nuevo!";
+                res.style.color = "#BC002D";
+            }
+        }
+    </script>
+
+</body>
+</html>
