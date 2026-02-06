@@ -22,7 +22,6 @@
 
         body {
             background-color: var(--dark-brown);
-            /* Textura de fondo elegante */
             background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
             color: #333;
             font-family: 'Noto Serif JP', serif;
@@ -60,7 +59,6 @@
             filter: drop-shadow(0 0 5px rgba(255,192,203,0.5));
         }
         
-        /* Pétalos rojos intercalados */
         .petal:nth-child(even) { background-color: var(--red-vibrant); width: 10px; height: 10px; }
 
         @keyframes fall {
@@ -72,20 +70,17 @@
         /* =========================================
            3. ANIMACIONES CINEMÁTICAS
            ========================================= */
-        /* Levitación suave para tarjetas */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
 
-        /* Brillo de texto dorado */
         @keyframes textShine {
             0% { background-position: -200%; }
             100% { background-position: 200%; }
         }
 
-        /* Aparición al hacer Scroll */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -111,7 +106,6 @@
             overflow: hidden;
         }
 
-        /* HEADER PARALLAX */
         header {
             background: linear-gradient(to bottom, rgba(26, 5, 3, 0.85), rgba(140, 43, 41, 0.65)), url('https://upload.wikimedia.org/wikipedia/commons/2/23/Kiyochika_Our_Fleet_Sinking_Chinese_Warships.jpg');
             background-size: cover;
@@ -129,7 +123,6 @@
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 12px;
-            /* Efecto Texto Dorado Metálico */
             background: linear-gradient(to right, #bf9b30, #ffecb3, #bf9b30, #ffecb3);
             background-size: 200% auto;
             animation: textShine 4s linear infinite;
@@ -146,7 +139,6 @@
         }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* INTRODUCCIÓN */
         .intro-box {
             padding: 80px 100px;
             text-align: center;
@@ -159,7 +151,7 @@
         .intro-box::after { content: "✦"; display: block; font-size: 2em; color: var(--red-deep); margin-top: 20px; }
 
         /* =========================================
-           5. TARJETAS FLOTANTES
+           5. TARJETAS FLOTANTES (ELEGANTE AJUSTE DE IMAGEN)
            ========================================= */
         .cards-section {
             display: flex;
@@ -189,15 +181,28 @@
             z-index: 10;
         }
 
-        .card-img-container { height: 420px; overflow: hidden; border-bottom: 6px solid var(--gold-color); position: relative; }
-        
-        .card-img {
-            width: 100%; height: 100%; object-fit: cover; object-position: top;
-            transition: transform 1.5s; filter: sepia(15%);
+        /* AJUSTE: Altura reducida y fondo crema para rellenar espacios */
+        .card-img-container { 
+            height: 350px; /* Antes 420px */
+            overflow: hidden; 
+            border-bottom: 6px solid var(--gold-color); 
+            position: relative;
+            background-color: var(--cream); /* Fondo para cuando la imagen no cubra todo */
         }
-        .fit-contain { object-fit: contain; background-color: #fcefd0; padding: 30px; }
         
-        .card:hover .card-img { transform: scale(1.15); filter: sepia(0%); }
+        /* AJUSTE: Se usa 'contain' para que la imagen se vea completa siempre */
+        .card-img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* Cambio clave: contain en lugar de cover */
+            object-position: center; /* Centrado */
+            transition: transform 1.5s; 
+            filter: sepia(15%);
+        }
+        
+        /* NOTA: Se eliminó la clase .fit-contain para que ambas usen el estilo estándar de arriba */
+        
+        .card:hover .card-img { transform: scale(1.10); filter: sepia(0%); } /* Zoom ligeramente reducido */
 
         .card-title { 
             background: var(--red-deep); color: #fff; padding: 20px; text-align: center; 
@@ -214,7 +219,7 @@
         .click-hint { text-align: center; color: var(--red-vibrant); font-weight: bold; padding: 15px; font-size: 0.9em; letter-spacing: 2px; }
 
         /* =========================================
-           6. BLOQUES INFORMATIVOS
+           6. RESTO DE SECCIONES (SIN CAMBIOS)
            ========================================= */
         .info-block { padding: 90px 80px; position: relative; }
         
@@ -224,7 +229,6 @@
         }
         .info-block h3 { color: var(--orange); font-size: 1.8em; margin-top: 40px; font-weight: 700; }
 
-        /* MODO OSCURO (IDEOLOGÍA) */
         .dark-mode {
             background-color: var(--dark-brown);
             background-image: url("https://www.transparenttextures.com/patterns/black-lozenge.png");
@@ -238,7 +242,6 @@
             border-color: var(--red-vibrant); 
         }
 
-        /* Listas con iconos animados */
         ul.styled-list { list-style: none; padding: 0; }
         ul.styled-list li { 
             margin-bottom: 20px; position: relative; padding-left: 45px; font-size: 1.15em; 
@@ -248,9 +251,6 @@
         ul.styled-list li::before { content: "❖"; color: var(--red-vibrant); position: absolute; left: 0; top: 3px; font-size: 1.2em; }
         .dark-mode ul.styled-list li::before { color: var(--gold-color); }
 
-        /* =========================================
-           7. SECCIÓN WWII (ÉPICA)
-           ========================================= */
         .war-section {
             background: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://www.transparenttextures.com/patterns/black-scales.png');
             padding: 100px 90px;
@@ -269,9 +269,6 @@
         }
         .war-highlight:hover { transform: scale(1.02); }
 
-        /* =========================================
-           8. VIDEOS & QUIZ
-           ========================================= */
         .media-section { padding: 90px; background: #fff; text-align: center; border-top: 6px solid var(--red-deep); }
         .video-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px; }
         iframe { 
@@ -280,7 +277,6 @@
         }
         iframe:hover { transform: scale(1.05) rotate(1deg); border-color: var(--gold-color); z-index: 5; }
 
-        /* QUIZ */
         .quiz-container {
             margin: 80px 50px;
             background: var(--orange);
@@ -292,7 +288,6 @@
             position: relative;
             box-shadow: 0 25px 60px rgba(0,0,0,0.4);
         }
-        /* Sello de "Aprobado" */
         .quiz-container::after {
             content: "合格";
             position: absolute; top: -50px; right: -30px;
@@ -317,7 +312,6 @@
             background: linear-gradient(to right, var(--gold-color), var(--orange));
         }
 
-        /* FOOTER */
         footer { background: var(--dark-brown); color: var(--cream); padding: 90px; text-align: center; font-size: 1.1em; border-top: 4px solid var(--gold-color); }
 
         @media (max-width: 768px) { h1 { font-size: 3em; } .info-block, .intro-box { padding: 40px 20px; } .card { width: 100%; } }
@@ -353,7 +347,7 @@
             <div class="card reveal" onclick="toggleText('c1')">
                 <div class="card-title">CONTEXTO: EL SHOGUNATO</div>
                 <div class="card-img-container">
-                    <img src="image_3.png" alt="Japón Tradicional" class="card-img">
+                    <img src="image_4.png" alt="Japón Tradicional" class="card-img">
                 </div>
                 <div class="click-hint">▼ CLIC PARA DESCUBRIR ▼</div>
                 <div id="c1" class="card-content">
@@ -365,7 +359,7 @@
             <div class="card reveal" style="transition-delay: 0.2s;" onclick="toggleText('c2')">
                 <div class="card-title">EL INICIO: ERA MEIJI</div>
                 <div class="card-img-container">
-                    <img src="image_4.png" alt="Samurai Chibi" class="card-img fit-contain">
+                     <img src="image_3.png" alt="Samurai Chibi" class="card-img">
                 </div>
                 <div class="click-hint">▼ CLIC PARA DESCUBRIR ▼</div>
                 <div id="c2" class="card-content">
@@ -411,14 +405,11 @@
 
         <section class="war-section reveal">
             <h2 style="font-family:'Cinzel', serif; color:var(--red-deep); font-size:2.5em; border-bottom:3px solid var(--red-deep);">Japón en la Segunda Guerra Mundial</h2>
-            
             <p>Buscando hegemonía y recursos (petróleo, hierro), Japón se alió con el <strong>Eje</strong> (Alemania e Italia).</p>
-            
             <div class="war-highlight">
                 <h3>El Ataque a Pearl Harbor (1941)</h3>
                 <p>En un intento por neutralizar la flota del Pacífico, Japón atacó la base naval de EE.UU. en Hawái. Este evento provocó la entrada directa de Estados Unidos al conflicto, sellando el destino de la guerra.</p>
             </div>
-
             <p>Tras años de sangrientos combates y desgaste, el conflicto culminó en 1945 con los devastadores <strong>bombardeos atómicos sobre Hiroshima y Nagasaki</strong>. Japón anunció su rendición incondicional, marcando el fin del Imperio y de la guerra.</p>
         </section>
 
@@ -437,37 +428,31 @@
 
         <section class="quiz-container reveal">
             <h2 style="text-align:center; font-family:'Cinzel',serif; border-bottom:3px solid var(--dark-brown); margin-bottom:40px;">Examen Imperial</h2>
-            
             <div class="question">
                 <strong>1. ¿Qué sistema gobernaba Japón antes de 1868?</strong><br>
                 <label><input type="radio" name="q1" value="ok"> El shogunato Tokugawa (Feudal)</label><br>
                 <label><input type="radio" name="q1" value="no"> Una República Democrática</label>
             </div>
-
             <div class="question">
                 <strong>2. ¿Cuál fue el objetivo principal de la expansión?</strong><br>
                 <label><input type="radio" name="q2" value="no"> Fomentar el turismo</label><br>
                 <label><input type="radio" name="q2" value="ok"> Conseguir recursos naturales estratégicos</label>
             </div>
-
             <div class="question">
                 <strong>3. ¿Qué significó la Restauración Meiji?</strong><br>
                 <label><input type="radio" name="q3" value="ok"> Retorno del poder al Emperador y modernización</label><br>
                 <label><input type="radio" name="q3" value="no"> El inicio del aislamiento total</label>
             </div>
-
             <div class="question">
                 <strong>4. ¿Qué evento provocó la entrada de EE.UU. a la guerra?</strong><br>
                 <label><input type="radio" name="q4" value="no"> La invasión de Polonia</label><br>
                 <label><input type="radio" name="q4" value="ok"> El ataque a Pearl Harbor</label>
             </div>
-
             <div class="question">
                 <strong>5. ¿Qué marcó el fin definitivo del Imperio en 1945?</strong><br>
                 <label><input type="radio" name="q5" value="ok"> Bombardeos atómicos y rendición</label><br>
                 <label><input type="radio" name="q5" value="no"> La muerte natural del Emperador</label>
             </div>
-
             <button class="btn-quiz" onclick="verificar()">ENTREGAR EXAMEN</button>
             <div id="resultado" style="text-align:center; font-weight:bold; font-size:1.4em; margin-top:30px; min-height: 30px;"></div>
         </section>
@@ -476,7 +461,7 @@
             <h3>Fuentes de Referencia</h3>
             <p>Gordon, A. "A Modern History of Japan" | Jansen, M. B. "The Making of Modern Japan"</p>
             <p>Historia Universal.org | Encyclopaedia Britannica</p>
-            <p>© 2026 - Proyecto Escolar</p>
+            <p>© 2026 - pgb-mns</p>
         </footer>
 
     </div>
