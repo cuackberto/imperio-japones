@@ -11,549 +11,507 @@
            1. VARIABLES Y CONFIGURACIÓN BASE
            ========================================= */
         :root {
-            /* Paleta de colores "Fuego Imperial" */
-            --cream: #F9DAAC;      /* Fondo Papel/Pergamino */
-            --orange: #DC895B;     /* Detalles secundarios */
-            --red-vibrant: #DA5447; /* Acentos vivos */
-            --dark-brown: #2E0B07;  /* Fondo principal oscuro */
-            --red-deep: #8C2B29;    /* Bordes y botones */
-            --gold-start: #F9DAAC;  /* Degradado dorado inicio */
-            --gold-mid: #ECAC54;    /* Degradado dorado medio */
-            --gold-end: #DC895B;    /* Degradado dorado fin */
+            --cream: #F9DAAC;
+            --orange: #DC895B;
+            --red-vibrant: #DA5447;
+            --dark-brown: #1a0503;
+            --red-deep: #8C2B29;
+            --gold-gradient: linear-gradient(45deg, #b78e26, #f3e3ba, #b78e26);
+            --gold-color: #d4af37;
         }
 
         body {
             background-color: var(--dark-brown);
-            color: var(--dark-brown);
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            color: #333;
             font-family: 'Noto Serif JP', serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            line-height: 1.8;
+            line-height: 1.9;
         }
+
+        /* Scrollbar de lujo */
+        ::-webkit-scrollbar { width: 14px; }
+        ::-webkit-scrollbar-track { background: var(--dark-brown); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-gradient); border-radius: 7px; border: 3px solid var(--dark-brown); }
 
         /* =========================================
-           2. ANIMACIONES GLOBALES
+           2. ANIMACIONES AVANZADAS (NUEVAS)
            ========================================= */
         
-        /* Efecto de brillo dorado en movimiento */
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
+        /* Flotación suave (Levitación) */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* Efecto de aparición suave al hacer scroll */
-        .scroll-hidden {
+        /* Brillo de Texto */
+        @keyframes shine {
+            0% { background-position: -200%; }
+            100% { background-position: 200%; }
+        }
+
+        /* Aparición 3D */
+        .reveal-3d {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: perspective(1000px) rotateX(20deg) translateY(50px);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .scroll-show {
+        .reveal-3d.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1000px) rotateX(0deg) translateY(0);
         }
 
-        /* Efecto de hojas/pétalos cayendo */
-        .falling-leaves-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+        /* Polvo Dorado en Header */
+        .gold-dust {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;
+            background-image: radial-gradient(var(--gold-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            animation: dustMove 20s linear infinite;
         }
-        .leaf {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: var(--red-vibrant);
-            border-radius: 150% 0 150% 0;
-            animation: fall linear infinite;
-            opacity: 0.6;
-        }
-        .leaf:nth-child(even) { background-color: var(--orange); width: 12px; height: 12px; }
-        
-        @keyframes fall {
-            0% { transform: translate(0, -10vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translate(20vw, 110vh) rotate(360deg); opacity: 0; }
-        }
+        @keyframes dustMove { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+
+        /* Hojas cayendo */
+        .leaves-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+        .leaf { position: absolute; width: 15px; height: 15px; background-color: var(--red-vibrant); border-radius: 150% 0 150% 0; animation: fall linear infinite; opacity: 0.6; filter: drop-shadow(0 0 5px var(--red-vibrant)); }
+        @keyframes fall { 0% { transform: translate(0, -10vh) rotate(0deg); opacity: 0; } 100% { transform: translate(20vw, 110vh) rotate(360deg); opacity: 0; } }
 
         /* =========================================
-           3. ESTRUCTURA PRINCIPAL (PERGAMINO)
+           3. ESTRUCTURA PRINCIPAL (PERGAMINO DE LACA)
            ========================================= */
-        .main-scroll-container {
-            max-width: 1000px;
+        .main-wrapper {
+            max-width: 1100px;
             margin: 40px auto;
-            background-color: var(--cream);
-            border: 4px solid var(--gold-mid);
-            box-shadow: 0 0 60px rgba(0,0,0,0.8);
+            background-color: #fffbf0;
+            background-image: url("https://www.transparenttextures.com/patterns/rice-paper-3.png");
+            box-shadow: 0 0 150px rgba(0,0,0,1);
+            border: 4px solid var(--gold-color);
+            outline: 15px solid var(--dark-brown);
             position: relative;
             overflow: hidden;
         }
 
-        /* =========================================
-           4. ENCABEZADO Y TÍTULOS
-           ========================================= */
+        /* HEADER */
         header {
-            /* Fondo con textura e imagen de época */
-            background: linear-gradient(to bottom, rgba(46, 11, 7, 0.9), rgba(140, 43, 41, 0.8)), url('https://upload.wikimedia.org/wikipedia/commons/2/23/Kiyochika_Our_Fleet_Sinking_Chinese_Warships.jpg');
+            background: linear-gradient(to bottom, rgba(26, 5, 3, 0.8), rgba(140, 43, 41, 0.6)), url('https://upload.wikimedia.org/wikipedia/commons/2/23/Kiyochika_Our_Fleet_Sinking_Chinese_Warships.jpg');
             background-size: cover;
             background-position: center;
-            padding: 100px 20px;
+            background-attachment: fixed;
+            padding: 160px 20px;
             text-align: center;
-            border-bottom: 5px solid var(--gold-mid);
+            border-bottom: 8px solid var(--gold-color);
+            position: relative;
+            overflow: hidden;
         }
 
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 4.5em;
+            font-size: 6em;
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 8px;
-            /* Efecto de ORO VIVIENTE con animación */
-            background: linear-gradient(90deg, var(--gold-start), var(--gold-mid), var(--gold-end), var(--gold-mid), var(--gold-start));
+            letter-spacing: 12px;
+            background: linear-gradient(to right, #bf9b30, #ffecb3, #bf9b30);
             background-size: 200% auto;
-            animation: shimmer 5s linear infinite; /* Animación del brillo */
+            animation: shine 3s linear infinite;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 0px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.9));
             position: relative;
             z-index: 10;
         }
 
-        .subtitle {
-            color: var(--cream);
-            font-size: 1.4em;
-            letter-spacing: 4px;
-            margin-top: 15px;
-            font-weight: 300;
-            text-shadow: 2px 2px 4px black;
+        .subtitle { 
+            color: var(--cream); font-size: 1.8em; margin-top: 20px; letter-spacing: 6px; 
+            text-shadow: 0 4px 15px black; opacity: 0; animation: reveal-3d 2s ease-out forwards 0.5s; 
         }
+
+        /* INTRODUCCIÓN */
+        .intro-box {
+            padding: 80px 100px;
+            text-align: center;
+            font-size: 1.4em;
+            color: var(--dark-brown);
+            background: radial-gradient(circle at center, #fffbf0, var(--cream));
+            border-bottom: 3px solid var(--red-deep);
+            position: relative;
+            animation: float 6s ease-in-out infinite; /* Flotación suave */
+        }
+        .intro-box::after { content: "✦"; display: block; font-size: 2em; color: var(--red-deep); margin-top: 20px; }
 
         /* =========================================
-           5. SECCIONES DE CONTENIDO
+           4. TARJETAS FLOTANTES (INTERACTIVIDAD MEJORADA)
            ========================================= */
-        .intro-section {
-            padding: 60px;
-            text-align: center;
-            font-size: 1.3em;
-            color: var(--dark-brown);
-        }
-        .intro-section strong { color: var(--red-deep); }
-
-        /* --- TARJETAS INTERACTIVAS --- */
-        .cards-grid {
+        .cards-section {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 50px;
-            padding: 0 40px 60px 40px;
+            gap: 70px;
+            padding: 80px 40px;
+            background-image: url("https://www.transparenttextures.com/patterns/washi.png");
         }
 
         .card {
-            width: 400px;
+            width: 450px;
             background: #fff;
-            border: 3px solid var(--red-deep);
+            border: 3px solid var(--dark-brown);
             border-radius: 6px;
             overflow: hidden;
-            box-shadow: 12px 12px 0px rgba(220, 137, 91, 0.5); /* Sombra naranja */
-            transition: all 0.4s ease;
+            box-shadow: 20px 20px 0px rgba(46, 11, 7, 0.4);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             position: relative;
+            animation: float 8s ease-in-out infinite; /* Tarjetas flotantes */
+        }
+        /* Retraso para que floten a distinto tiempo */
+        .card:nth-child(2) { animation-delay: 1s; }
+
+        .card:hover { 
+            transform: translateY(-20px) scale(1.05) !important; /* Rompe la animación float al hover */
+            border-image: var(--gold-gradient) 1;
+            box-shadow: 30px 30px 0px rgba(212, 175, 55, 0.5);
+            z-index: 10;
         }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--gold-mid);
-            box-shadow: 15px 15px 0px rgba(236, 172, 84, 0.6); /* Sombra dorada al hover */
+        .card-img-container { height: 450px; overflow: hidden; border-bottom: 6px solid var(--gold-color); position: relative; }
+        
+        .card-img {
+            width: 100%; height: 100%; object-fit: cover; object-position: top;
+            transition: transform 1.5s; filter: sepia(15%);
+        }
+        .fit-contain { object-fit: contain; background-color: #fcefd0; padding: 30px; }
+        
+        .card:hover .card-img { transform: scale(1.2); filter: sepia(0%); }
+
+        .card-title { 
+            background: var(--red-deep); color: #fff; padding: 22px; text-align: center; 
+            font-family: 'Cinzel', serif; font-size: 1.5em; letter-spacing: 3px; position: relative; overflow: hidden;
+        }
+        
+        .card-content { 
+            padding: 40px; display: none; background: #fff; border-top: 3px dashed var(--orange); 
+            font-size: 1.1em; text-align: justify;
+        }
+        .card-content.show { display: block; animation: reveal-3d 0.8s ease; }
+        
+        .click-hint { text-align: center; color: var(--red-vibrant); font-weight: bold; padding: 15px; font-size: 1em; letter-spacing: 2px; }
+
+        /* =========================================
+           5. BLOQUES INFORMATIVOS
+           ========================================= */
+        .info-block { padding: 90px 90px; position: relative; }
+        
+        .info-block h2 {
+            font-family: 'Cinzel', serif; color: var(--red-deep); font-size: 2.8em;
+            border-bottom: 4px solid var(--gold-color); display: inline-block; margin-bottom: 40px;
+        }
+        .info-block h3 { color: var(--orange); font-size: 2em; margin-top: 40px; font-weight: 700; }
+
+        /* MODO OSCURO (IDEOLOGÍA) */
+        .dark-mode {
+            background-color: var(--dark-brown);
+            background-image: url("https://www.transparenttextures.com/patterns/black-lozenge.png");
+            color: var(--cream);
+            border-top: 8px solid var(--gold-color);
+            border-bottom: 8px solid var(--gold-color);
+            box-shadow: inset 0 0 80px rgba(0,0,0,1);
+        }
+        .dark-mode h2 { 
+            color: transparent; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text;
+            border-color: var(--red-vibrant); 
         }
 
-        .card-img-box {
-            height: 380px;
-            overflow: hidden;
-            border-bottom: 4px solid var(--gold-mid);
+        /* Listas con iconos animados */
+        ul.styled-list { list-style: none; padding: 0; }
+        ul.styled-list li { 
+            margin-bottom: 22px; position: relative; padding-left: 45px; font-size: 1.2em; 
+            transition: transform 0.3s, color 0.3s;
+        }
+        ul.styled-list li:hover { transform: translateX(15px); color: var(--red-deep); }
+        ul.styled-list li::before { content: "❖"; color: var(--red-vibrant); position: absolute; left: 0; top: 2px; font-size: 1.3em; transition: transform 0.3s;}
+        ul.styled-list li:hover::before { transform: rotate(90deg); }
+        
+        .dark-mode ul.styled-list li:hover { color: var(--gold-color); }
+        .dark-mode ul.styled-list li::before { color: var(--gold-color); }
+
+        /* =========================================
+           6. WWII (SECCIÓN ÉPICA)
+           ========================================= */
+        .war-section {
+            background: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://www.transparenttextures.com/patterns/black-scales.png');
+            padding: 100px 90px;
+            border-left: 20px solid var(--red-vibrant);
             position: relative;
         }
-
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Ajuste específico para las imágenes proporcionadas */
-            object-position: center; 
-            transition: transform 1s ease;
-            filter: sepia(20%); /* Un toque antiguo */
-        }
-
-        .card:hover .card-img { transform: scale(1.15); }
-
-        .card-title-banner {
-            background-color: var(--red-deep);
-            color: var(--cream);
-            padding: 12px;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 1.3em;
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--gold-mid);
-        }
-
-        .card-body { padding: 25px; background-color: #fffbf0; }
         
-        .click-instruction {
-            text-align: center;
-            color: var(--red-deep);
-            font-weight: bold;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .hidden-text {
-            display: none;
-            font-size: 1.05em;
-            text-align: justify;
-            color: #333;
-            padding-top: 15px;
-            border-top: 2px dashed var(--orange);
-            animation: fadeInText 0.5s ease-in;
-        }
-        @keyframes fadeInText { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .hidden-text.visible { display: block; }
-
-        /* --- SECCIÓN OSCURA (IDEOLOGÍA) --- */
-        .dark-ideology-section {
-            background-color: var(--dark-brown);
-            color: var(--cream);
-            padding: 60px;
-            margin: 30px;
-            border: 3px double var(--gold-mid);
-            text-align: left;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
-        }
-        
-        .dark-ideology-section h2 {
-            color: var(--gold-mid);
-            font-family: 'Cinzel', serif;
-            font-size: 2em;
-            border-bottom: 2px solid var(--red-vibrant);
-            padding-bottom: 15px;
-            margin-top: 0;
-        }
-        
-        .ideology-list { list-style: none; padding: 0; }
-        .ideology-list li { margin-bottom: 15px; font-size: 1.1em; display: flex; align-items: start; }
-        .ideology-list li::before { content: "✦"; color: var(--red-vibrant); margin-right: 12px; font-size: 1.2em; }
-
-        /* --- SECCIÓN DE VIDEOS --- */
-        .video-section {
-            background-color: #fff;
+        .war-highlight {
+            background: rgba(140, 43, 41, 0.08);
             padding: 50px;
-            text-align: center;
-            border-top: 5px solid var(--red-deep);
-        }
-        .video-wrapper {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        iframe {
-            border: 4px solid var(--dark-brown);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 450px;
-            height: 260px;
+            border-radius: 10px;
+            margin: 50px 0;
+            border-left: 8px solid var(--red-deep);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
-        iframe:hover { transform: scale(1.02); }
+        .war-highlight:hover { transform: scale(1.02); background: rgba(140, 43, 41, 0.12); }
 
         /* =========================================
-           6. CUESTIONARIO (QUIZ 5 PREGUNTAS)
+           7. EXTRAS (VIDEO & QUIZ)
            ========================================= */
+        .media-section { padding: 90px; background: #fff; text-align: center; border-top: 6px solid var(--red-deep); }
+        .video-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px; }
+        iframe { 
+            border: 8px solid var(--dark-brown); width: 100%; max-width: 500px; height: 300px; 
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.3); transition: all 0.4s;
+        }
+        iframe:hover { transform: scale(1.05) rotate(1deg); border-color: var(--gold-color); z-index: 5; }
+
+        /* QUIZ */
         .quiz-container {
-            background-color: var(--orange);
-            background-image: url("https://www.transparenttextures.com/patterns/aged-paper.png"); /* Textura sutil */
-            padding: 50px;
-            margin: 50px;
-            border-radius: 12px;
-            border: 3px solid var(--dark-brown);
+            margin: 80px 50px;
+            background: var(--orange);
+            background-image: url("https://www.transparenttextures.com/patterns/aged-paper.png");
+            padding: 70px;
+            border-radius: 15px;
+            border: 6px double var(--dark-brown);
             color: var(--dark-brown);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+        }
+        .quiz-container::after {
+            content: "合格"; /* Sello Kanji */
+            position: absolute; top: -50px; right: -30px;
+            font-size: 7em; color: var(--red-deep); opacity: 0.15; transform: rotate(15deg); font-family: sans-serif; pointer-events: none;
         }
 
-        .quiz-title {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 2em;
-            border-bottom: 3px solid var(--dark-brown);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            color: var(--dark-brown);
+        .question { 
+            background: rgba(255,255,255,0.9); padding: 30px; margin-bottom: 30px; border-radius: 6px; 
+            border-left: 10px solid var(--red-deep); box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s;
+        }
+        .question:hover { transform: translateX(15px) scale(1.01); }
+        
+        .btn-quiz {
+            background: linear-gradient(to right, var(--red-deep), var(--red-vibrant)); 
+            color: #fff; padding: 25px 70px; font-family: 'Cinzel', serif; font-size: 1.5em; font-weight: bold;
+            border: 4px solid var(--gold-color); cursor: pointer; display: block; margin: 60px auto; 
+            transition: 0.4s; box-shadow: 0 15px 30px rgba(0,0,0,0.3); border-radius: 50px;
+        }
+        .btn-quiz:hover { 
+            transform: translateY(-8px) scale(1.05); 
+            box-shadow: 0 30px 60px rgba(218, 84, 71, 0.7);
+            background: linear-gradient(to right, var(--gold-color), var(--orange));
         }
 
-        .question-item {
-            background-color: rgba(255,255,255,0.85);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border-left: 6px solid var(--red-deep);
-            transition: transform 0.2s;
-        }
-        .question-item:hover { transform: translateX(5px); }
+        /* FOOTER */
+        footer { background: var(--dark-brown); color: var(--cream); padding: 90px; text-align: center; font-size: 1.2em; border-top: 4px solid var(--gold-color); }
+        footer h3 { color: var(--gold-color); font-family: 'Cinzel', serif; }
 
-        .question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 10px; display: block; }
-        .options label { display: block; margin: 8px 0; cursor: pointer; }
-
-        .btn-check-quiz {
-            background: linear-gradient(to right, var(--red-deep), var(--red-vibrant));
-            color: var(--cream);
-            padding: 18px 50px;
-            border: 3px solid var(--gold-mid);
-            font-family: 'Cinzel', serif;
-            font-size: 1.3em;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            margin: 40px auto 0 auto;
-            transition: 0.3s;
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .btn-check-quiz:hover { 
-            background: linear-gradient(to right, var(--red-vibrant), var(--orange));
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(218, 84, 71, 0.4);
-        }
-
-        #quiz-result {
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.4em;
-            margin-top: 30px;
-            min-height: 1.4em;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        /* =========================================
-           7. PIE DE PÁGINA
-           ========================================= */
-        footer {
-            background-color: var(--dark-brown);
-            color: var(--orange);
-            text-align: center;
-            padding: 50px;
-            font-size: 0.95em;
-            border-top: 3px solid var(--gold-mid);
-        }
-        footer h3 { color: var(--gold-mid); font-family: 'Cinzel', serif; }
-        footer p { margin: 5px 0; }
-
+        @media (max-width: 768px) { h1 { font-size: 3em; letter-spacing: 5px; } .info-block, .intro-box, .war-section { padding: 40px 20px; } .card { width: 100%; } iframe { height: 200px; } }
     </style>
 </head>
 <body>
 
-    <div class="falling-leaves-container">
-        <div class="leaf" style="left: 10%; animation-duration: 10s; animation-delay: 0s;"></div>
-        <div class="leaf" style="left: 30%; animation-duration: 12s; animation-delay: 2s;"></div>
-        <div class="leaf" style="left: 70%; animation-duration: 8s; animation-delay: 4s;"></div>
-        <div class="leaf" style="left: 50%; animation-duration: 15s; animation-delay: 1s;"></div>
-        <div class="leaf" style="left: 90%; animation-duration: 11s; animation-delay: 3s;"></div>
-        <div class="leaf" style="left: 20%; animation-duration: 13s; animation-delay: 5s; background-color: var(--gold-mid);"></div>
+    <div class="leaves-container">
+        <div class="leaf" style="left:10%; animation-duration:10s;"></div>
+        <div class="leaf" style="left:30%; animation-duration:12s; background:var(--orange);"></div>
+        <div class="leaf" style="left:70%; animation-duration:8s;"></div>
+        <div class="leaf" style="left:50%; animation-duration:15s; background:var(--gold-color);"></div>
+        <div class="leaf" style="left:20%; animation-duration:13s;"></div>
+        <div class="leaf" style="left:85%; animation-duration:9s; background:var(--red-deep);"></div>
     </div>
 
-    <div class="main-scroll-container">
+    <div class="main-wrapper">
 
         <header>
+            <div class="gold-dust"></div>
             <h1>Imperio Japonés</h1>
-            <div class="subtitle">1868 — 1945</div>
+            <div class="subtitle" style="animation-delay: 1s; opacity: 1;">DAI NIPPON TEIKOKU (1868 — 1945)</div>
         </header>
 
-        <section class="intro-section scroll-hidden">
-            <p>
-                El <strong>Imperio del Japón</strong> transformó el equilibrio mundial. Una era definida por una rápida modernización, el fin de los samuráis feudales y una ambición expansionista que marcó la historia del siglo XX.
-            </p>
-        </section>
+        <div class="intro-box reveal-3d">
+            <p><strong>El Imperio Japonés (1868-1945)</strong> fue un periodo histórico en que Japón pasó de ser un país tradicional y aislado a convertirse en una gran potencia industrial y militar global. Este cambio radical se basó en un férreo nacionalismo y una agresiva expansión territorial.</p>
+        </div>
 
-        <section class="cards-grid scroll-hidden">
+        <section class="cards-section">
             
-            <div class="card" onclick="toggleText('t1')">
-                <div class="card-title-banner">CONTEXTO</div>
-                <div class="card-img-box">
-                    <img src="image_3.png" alt="Japón Tradicional Feudal" class="card-img">
+            <div class="card reveal-3d" onclick="toggleText('c1')">
+                <div class="card-title">CONTEXTO: EL SHOGUNATO</div>
+                <div class="card-img-container">
+                    <img src="image_4.png" alt="Guerrero Shogunato" class="card-img fit-contain">
                 </div>
-                <div class="card-body">
-                    <div class="click-instruction">▼ CLIC PARA LEER ▼</div>
-                    <div id="t1" class="hidden-text">
-                        [cite_start]<p><strong>El Fin del Feudalismo:</strong> Antes de 1868, Japón vivía aislado bajo el Shogunato Tokugawa[cite: 3, 5]. [cite_start]Era una sociedad feudal donde el poder lo tenían los militares (shogún) y el Emperador era solo un símbolo[cite: 4]. Esta imagen tradicional representa ese mundo antiguo que estaba a punto de desaparecer.</p>
-                    </div>
+                <div class="click-hint">▼ CLIC PARA DESCUBRIR ▼</div>
+                <div id="c1" class="card-content">
+                    <p>Antes de la era imperial, Japón vivía bajo el <strong>shogunato Tokugawa</strong> (1603-1868). Era un sistema feudal rígido donde el poder real lo ostentaban los militares (shogún) y el Emperador era meramente simbólico.</p>
+                    <p>El país se mantuvo en <strong>aislamiento (Sakoku)</strong> por más de dos siglos. La sociedad estaba estratificada en clases (samuráis, campesinos). Este aislamiento causó un severo atraso tecnológico frente a las potencias de Occidente.</p>
                 </div>
             </div>
 
-            <div class="card" onclick="toggleText('t2')">
-                <div class="card-title-banner">CAUSAS</div>
-                <div class="card-img-box">
-                    <img src="image_4.png" alt="Samurái Chibi" class="card-img" style="object-fit: contain; background-color: #f4e4bc;">
+            <div class="card reveal-3d" style="animation-delay: 0.3s;" onclick="toggleText('c2')">
+                <div class="card-title">EL INICIO: ERA MEIJI</div>
+                <div class="card-img-container">
+                    <img src="image_3.png" alt="Templo Imperial" class="card-img">
                 </div>
-                <div class="card-body">
-                    <div class="click-instruction">▼ CLIC PARA LEER ▼</div>
-                    <div id="t2" class="hidden-text">
-                        [cite_start]<p><strong>Restauración Meiji:</strong> Ante la presión de potencias occidentales como EE.UU. para abrir sus puertos [cite: 8][cite_start], Japón temió ser colonizado[cite: 10]. [cite_start]El poder regresó al Emperador en 1868 y el país inició una modernización acelerada para obtener recursos y fortalecer su ejército[cite: 11, 26].</p>
-                    </div>
+                <div class="click-hint">▼ CLIC PARA DESCUBRIR ▼</div>
+                <div id="c2" class="card-content">
+                    <p>En 1868, presionado por potencias extranjeras y ante el temor de ser colonizado, el shogunato cayó. El poder político regresó al Emperador con la llamada <strong>Restauración Meiji</strong>.</p>
+                    <p>El nuevo gobierno impulsó una modernización vertiginosa: reforma educativa, creación de un ejército moderno e industrialización masiva. El Emperador se erigió como el símbolo absoluto de la unidad nacional.</p>
                 </div>
             </div>
 
         </section>
 
-        <section class="dark-ideology-section scroll-hidden">
-            <h2>Ideología Imperial</h2>
-            <p>El imperio se sostuvo sobre ideas clave que justificaron su expansión:</p>
-            <ul class="ideology-list">
-                [cite_start]<li><strong>Nacionalismo y Militarismo:</strong> Un fuerte orgullo nacional donde el ejército tenía gran influencia en el gobierno[cite: 42, 43].</li>
-                [cite_start]<li><strong>Culto al Emperador:</strong> Considerado una figura sagrada y divina, símbolo de la unidad nacional[cite: 44].</li>
-                [cite_start]<li><strong>Panasiatismo:</strong> La idea de que Japón debía liderar Asia y "liberarla" del control occidental[cite: 45].</li>
+        <section class="info-block dark-mode reveal-3d">
+            <h2>Expansión e Ideología</h2>
+            
+            <h3>Expansión Territorial</h3>
+            <p>Para alimentar su industria y aumentar su poder, Japón inició una agresiva expansión para obtener recursos naturales. Llegó a controlar:</p>
+            <ul class="styled-list">
+                <li>Corea y Taiwán</li>
+                <li>Manchuria y vastas regiones de China</li>
+                <li>Gran parte del sudeste asiático y las islas del Pacífico</li>
+            </ul>
+
+            <h3>Ideología del Imperio</h3>
+            <p>El expansionismo se justificó mediante cuatro pilares ideológicos:</p>
+            <ul class="styled-list">
+                <li><strong>Nacionalismo Extremo:</strong> Orgullo desmedido por la nación japonesa.</li>
+                <li><strong>Militarismo:</strong> El ejército dictaba las políticas del estado.</li>
+                <li><strong>Culto al Emperador:</strong> Venerado como una divinidad viviente.</li>
+                <li><strong>Panasiatismo:</strong> La misión de Japón de liderar Asia y "liberarla" del yugo occidental.</li>
             </ul>
         </section>
 
-        <section class="video-section scroll-hidden">
-            <h2 style="color:var(--red-deep); font-family:'Cinzel',serif; margin-bottom:10px;">Archivos Históricos Digitales (2025)</h2>
-            <div class="video-wrapper">
+        <section class="info-block reveal-3d">
+            <h2>Organización y Conflictos</h2>
+            <p>Aunque nominalmente una monarquía constitucional, el poder real residía en la cúpula militar. La sociedad valoraba la disciplina marcial y el sacrificio supremo. El estado controlaba la economía enfocándola al esfuerzo bélico.</p>
+            
+            <h3>Conflictos Clave</h3>
+            <ul class="styled-list">
+                <li>Guerra Sino-Japonesa (1894-1895)</li>
+                <li>Guerra Ruso-Japonesa (1904-1905)</li>
+                <li>Segunda Guerra Mundial (1939-1945)</li>
+            </ul>
+        </section>
+
+        <section class="war-section reveal-3d">
+            <h2 style="font-family:'Cinzel', serif; color:var(--red-deep); font-size:2.5em; border-bottom:3px solid var(--red-deep);">Japón en la Segunda Guerra Mundial</h2>
+            
+            <p>Buscando hegemonía y recursos (petróleo, hierro), Japón se alió con el <strong>Eje</strong> (Alemania e Italia).</p>
+            
+            <div class="war-highlight">
+                <h3>El Ataque a Pearl Harbor (1941)</h3>
+                <p>En un intento por neutralizar la flota del Pacífico, Japón atacó la base naval de EE.UU. en Hawái. Este evento provocó la entrada directa de Estados Unidos al conflicto, sellando el destino de la guerra.</p>
+            </div>
+
+            <p>Tras años de sangrientos combates y desgaste, el conflicto culminó en 1945 con los devastadores <strong>bombardeos atómicos sobre Hiroshima y Nagasaki</strong>. Japón anunció su rendición incondicional, marcando el fin del Imperio y de la guerra.</p>
+        </section>
+
+        <section class="info-block reveal-3d" style="background-color: var(--cream); text-align: center;">
+            <h3>Importancia Histórica</h3>
+            <p>Este periodo demuestra la capacidad de una nación para modernizarse en tiempo récord, pero también sirve como advertencia sobre las consecuencias catastróficas del imperialismo desmedido y la guerra total.</p>
+        </section>
+
+        <section class="media-section reveal-3d">
+            <h2 style="color:var(--red-deep);">Archivos Históricos (2025)</h2>
+            <div class="video-grid">
                 <iframe src="https://www.youtube.com/embed/gxKGTd4GESk" title="Historia Japón" allowfullscreen></iframe>
                 <iframe src="https://www.youtube.com/embed/rz8pb67IoLY" title="Bushido" allowfullscreen></iframe>
             </div>
         </section>
 
-        <section class="quiz-container scroll-hidden">
-            <h2 class="quiz-title">Examen Imperial de Historia</h2>
+        <section class="quiz-container reveal-3d">
+            <h2 style="text-align:center; font-family:'Cinzel',serif; border-bottom:3px solid var(--dark-brown); margin-bottom:40px;">Examen Imperial</h2>
             
-            <div class="question-item">
-                <span class="question-text">1. ¿Qué sistema de gobierno feudal terminó en 1868?</span>
-                <div class="options">
-                    <label><input type="radio" name="q1" value="ok"> El Shogunato Tokugawa</label>
-                    <label><input type="radio" name="q1" value="no"> La Democracia Parlamentaria</label>
-                    <label><input type="radio" name="q1" value="no"> El Comunismo</label>
-                </div>
+            <div class="question">
+                <strong>1. ¿Qué sistema gobernaba Japón antes de 1868?</strong><br>
+                <label><input type="radio" name="q1" value="ok"> El shogunato Tokugawa (Feudal)</label><br>
+                <label><input type="radio" name="q1" value="no"> Una República Democrática</label>
             </div>
 
-            <div class="question-item">
-                <span class="question-text">2. ¿Cuál fue una causa principal de la expansión territorial?</span>
-                <div class="options">
-                    <label><input type="radio" name="q2" value="no"> Expandir el turismo</label>
-                    <label><input type="radio" name="q2" value="ok"> Obtener recursos naturales escasos en las islas</label>
-                    <label><input type="radio" name="q2" value="no"> Buscar nuevas rutas de seda</label>
-                </div>
+            <div class="question">
+                <strong>2. ¿Cuál fue el objetivo principal de la expansión?</strong><br>
+                <label><input type="radio" name="q2" value="no"> Fomentar el turismo</label><br>
+                <label><input type="radio" name="q2" value="ok"> Conseguir recursos naturales estratégicos</label>
             </div>
 
-            <div class="question-item">
-                <span class="question-text">3. Según la ideología del imperio, ¿qué rol tenía el Emperador?</span>
-                <div class="options">
-                    <label><input type="radio" name="q3" value="no"> Era solo un líder militar más</label>
-                    <label><input type="radio" name="q3" value="ok"> Era una figura casi sagrada y símbolo de unidad</label>
-                    <label><input type="radio" name="q3" value="no"> Era elegido democráticamente por el pueblo</label>
-                </div>
+            <div class="question">
+                <strong>3. ¿Qué significó la Restauración Meiji?</strong><br>
+                <label><input type="radio" name="q3" value="ok"> Retorno del poder al Emperador y modernización</label><br>
+                <label><input type="radio" name="q3" value="no"> El inicio del aislamiento total</label>
             </div>
 
-            <div class="question-item">
-                <span class="question-text">4. ¿Con qué potencias se alió Japón durante la Segunda Guerra Mundial (el Eje)?</span>
-                <div class="options">
-                    <label><input type="radio" name="q4" value="ok"> Alemania e Italia</label>
-                    <label><input type="radio" name="q4" value="no"> Estados Unidos y Gran Bretaña</label>
-                    <label><input type="radio" name="q4" value="no"> Rusia y China</label>
-                </div>
+            <div class="question">
+                <strong>4. ¿Qué evento provocó la entrada de EE.UU. a la guerra?</strong><br>
+                <label><input type="radio" name="q4" value="no"> La invasión de Polonia</label><br>
+                <label><input type="radio" name="q4" value="ok"> El ataque a Pearl Harbor</label>
             </div>
 
-            <div class="question-item">
-                <span class="question-text">5. ¿Qué evento en 1945 marcó la rendición y disolución del Imperio?</span>
-                <div class="options">
-                    <label><input type="radio" name="q5" value="no"> La firma de un tratado comercial</label>
-                    <label><input type="radio" name="q5" value="no"> La invasión de Manchuria</label>
-                    <label><input type="radio" name="q5" value="ok"> Los bombardeos atómicos sobre Hiroshima y Nagasaki</label>
-                </div>
+            <div class="question">
+                <strong>5. ¿Qué marcó el fin definitivo del Imperio en 1945?</strong><br>
+                <label><input type="radio" name="q5" value="ok"> Bombardeos atómicos y rendición</label><br>
+                <label><input type="radio" name="q5" value="no"> La muerte natural del Emperador</label>
             </div>
 
-            <button class="btn-check-quiz" onclick="verificarQuizAmpliado()">VERIFICAR RESPUESTAS</button>
-            <div id="quiz-result"></div>
+            <button class="btn-quiz" onclick="verificar()">ENTREGAR EXAMEN</button>
+            <div id="resultado" style="text-align:center; font-weight:bold; font-size:1.4em; margin-top:30px; min-height: 30px;"></div>
         </section>
 
         <footer>
-            <h3>Referencias Bibliográficas</h3>
-            <p>Gordon, A. "A Modern History of Japan". Oxford Univ. [cite_start]Press. [cite: 79]</p>
-            <p>Jansen, M. B. "The Making of Modern Japan". Harvard Univ. [cite_start]Press. [cite: 77]</p>
-            <p>Historia Universal.org. [cite_start]"Imperio japonés". [cite: 75]</p>
-            <br>
-            <p>© 2026 - Proyecto Escolar de Historia</p>
+            <h3>Fuentes de Referencia</h3>
+            <p>Gordon, A. "A Modern History of Japan" | Jansen, M. B. "The Making of Modern Japan"</p>
+            <p>Historia Universal.org | Encyclopaedia Britannica</p>
+            <p>© 2026 - Proyecto Escolar</p>
         </footer>
 
     </div>
 
     <script>
-        // 1. Función para mostrar/ocultar texto en las tarjetas
+        // Toggle de texto en tarjetas
         function toggleText(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('visible');
+            var el = document.getElementById(id);
+            if(el.classList.contains('show')) el.classList.remove('show');
+            else el.classList.add('show');
         }
 
-        // 2. Lógica del Cuestionario Ampliado (5 preguntas)
-        function verificarQuizAmpliado() {
-            let score = 0;
-            let allAnswered = true;
-            const totalQuestions = 5;
-            const resultDiv = document.getElementById('quiz-result');
+        // Verificación del Quiz
+        function verificar() {
+            var score = 0;
+            var qs = ['q1', 'q2', 'q3', 'q4', 'q5'];
+            var allAnswered = true;
 
-            // Verificar cada pregunta
-            for (let i = 1; i <= totalQuestions; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (!selected) {
-                    allAnswered = false;
-                    break;
-                }
-                if (selected.value === "ok") {
-                    score++;
-                }
-            }
+            qs.forEach(function(q) {
+                var selected = document.querySelector('input[name="' + q + '"]:checked');
+                if (!selected) allAnswered = false;
+                else if (selected.value === "ok") score++;
+            });
 
-            // Mostrar resultados
-            if (!allAnswered) {
-                resultDiv.innerHTML = "⚠️ Por favor, responde las 5 preguntas antes de verificar.";
-                resultDiv.style.color = "#DA5447"; // Rojo vibrante
-                resultDiv.style.backgroundColor = "#fff";
+            var res = document.getElementById('resultado');
+            if(!allAnswered) {
+                res.innerHTML = "⚠️ Por favor responde todas las preguntas.";
+                res.style.color = "#8C2B29";
+            } else if(score === 5) {
+                res.innerHTML = "🎌 ¡HONORABLE! Puntuación perfecta: 5/5";
+                res.style.color = "#2E0B07";
             } else {
-                if (score === totalQuestions) {
-                    resultDiv.innerHTML = `🎌 ¡HONORABLE! Has acertado ${score}/${totalQuestions}. Dominas el tema.`;
-                    resultDiv.style.color = "#2E0B07";
-                    resultDiv.style.backgroundColor = "#4CAF50"; /* Verde éxito */
-                } else if (score >= 3) {
-                    resultDiv.innerHTML = `Buen trabajo. Tu puntaje es ${score}/${totalQuestions}.`;
-                    resultDiv.style.color = "#2E0B07";
-                    resultDiv.style.backgroundColor = "#ECAC54"; /* Dorado medio */
-                } else {
-                    resultDiv.innerHTML = `Puntaje: ${score}/${totalQuestions}. Te recomiendo repasar los textos.`;
-                    resultDiv.style.color = "#cream";
-                    resultDiv.style.backgroundColor = "#8C2B29"; /* Rojo oscuro */
-                }
+                res.innerHTML = "Puntuación: " + score + "/5. ¡Sigue estudiando!";
+                res.style.color = "#DC895B";
             }
         }
 
-        // 3. Animación de "Scroll Reveal" (Aparición al bajar)
-        // Detecta cuando los elementos entran en pantalla
+        // Animación de aparición al hacer Scroll (Intersection Observer)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('scroll-show');
+                    entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.1 }); // Se activa cuando el 10% del elemento es visible
+        }, { threshold: 0.1 });
 
-        // Aplicar el observador a todos los elementos con la clase 'scroll-hidden'
-        document.querySelectorAll('.scroll-hidden').forEach((el) => {
-            observer.observe(el);
-        });
-
+        const revealElements = document.querySelectorAll('.reveal-3d');
+        revealElements.forEach((el) => observer.observe(el));
     </script>
 
 </body>
